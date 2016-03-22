@@ -20,14 +20,17 @@ ARGF.each do |line|
   line = line.gsub(", 't'",", '1'")
   line = line.gsub(", 'f'",", '0'")
 
-  #Fix problems with sqlite3 numbers by making (almost) every INTEGER a mysql DECIMAL type
-  line = line.gsub("INTEGER", "DECIMAL") unless line.include? " id " or line.include? " ID "
+  #Fix problems with sqlite3 numbers by making (almost) every INTEGER a mysql BIGINT type
+  line = line.gsub("INTEGER", "BIGINT") unless line.include? " id " or line.include? " ID "
 
   #replace datetime('now') function from sqlite with mysql equivalent
   #datetime is sometimes wrapped, so try to remove the extra () first
   line = line.gsub("(datetime('now'))","NOW()")
   #then replace the unwrapped function
   line = line.gsub("datetime('now')","NOW()")
+
+  line = line.gsub("datetime default","TIMESTAMP DEFAULT")
+  line = line.gsub("DATETIME DEFAULT","TIMESTAMP DEFAULT")
 
   tempLine = ''
   in_string = false
