@@ -29,6 +29,27 @@ ARGF.each do |line|
   #then replace the unwrapped function
   line = line.gsub("datetime('now')","NOW()")
 
+  tempLine = ''
+  in_string = false
+
+  #fix quotes in table names etc.
+
+  line.split("").each do |c| #iterate over every character in the line
+    if not in_string
+      if c == "'"
+        in_string = true
+      elsif c == '"'
+        tempLine = tempLine + '`'
+        next
+      end
+    elsif c == "'"
+      in_string = false
+    end
+    tempLine = tempLine + c
+  end
+
+  line = tempLine
+
   #Write line to standard out
   $stdout.write line
 end
