@@ -1,4 +1,4 @@
-SQLite3 to Mysql Converter
+SQLite3 to Mysql Dump Converter
 ==========================
 
 Converts SQLite dump files to the mysql syntax to facilitate database switching, migration or replication.
