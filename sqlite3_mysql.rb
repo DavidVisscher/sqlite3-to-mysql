@@ -7,7 +7,7 @@ ARGF.each do |line|
   or line.include? "BEGIN TRANSACTION" \
   or line.include? "CREATE UNIQUE INDEX" \
   or line.include? "sqlite_sequence"
-    line = ""
+    next
   end
 
   # Words we always want to replace
